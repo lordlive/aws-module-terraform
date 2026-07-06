@@ -2,8 +2,7 @@ name: Destroy Terraform IaC
 # Destroy infrastructure using Terraform
 
 on:
-  push:
-  # workflow_dispatch:
+  workflow_dispatch:
 
 permissions:
   contents: read
