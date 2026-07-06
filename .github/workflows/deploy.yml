@@ -9,7 +9,7 @@ permissions:
 
 concurrency:  
   group: ${{ github.workflow }}-${{ github.ref }}  
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 env:
   TERRAFORM_DIR: ./terraform
@@ -28,7 +28,7 @@ jobs:
       with:
         role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
         role-session-name: samplerolesession
-        aws-region: ${{ env.AWS_REGION }}
+        aws-region: ${{ vars.AWS_REGION }}
 
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v2
