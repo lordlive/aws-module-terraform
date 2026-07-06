@@ -1,3 +1,10 @@
+# Global
+env         = ["dev"]
+region      = "eu-central-1"
+environment = "dev"
+# create_access_entries = true
+
+# VPC
 # switcher_default_vpc = false
 # create_vpc_endpoint  = true
 app_name = "aws-module-terraform"
@@ -14,9 +21,11 @@ vpc_enable_nat_gateway     = true
 vpc_single_nat_gateway     = true
 vpc_one_nat_gateway_per_az = false
 
-env         = ["dev"]
-region      = "eu-central-1"
-environment = "dev"
-# create_access_entries = true
-
+# S3
 bucket_name = "807291694811-dev-bucket"
+
+# EKS
+min_size     = 1
+max_size     = 2
+desired_size = 1
+disk_size    = 20

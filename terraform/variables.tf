@@ -92,3 +92,142 @@ variable "cluster_name" {
   description = "Cluster name."
   default     = "pr-aws-eks"
 }
+
+#EKS
+variable "cluster_name" {
+  type        = string
+  description = "Cluster name."
+  default     = "test-aws-eks"
+}
+
+variable "cluster_version" {
+  type        = string
+  description = "Kubernetes version to use for the EKS cluster."
+  default     = "1.35"
+}
+
+# variable "create_iam_role" {
+#   type        = bool
+#   description = "Determines whether to create an IAM role for the EKS cluster."
+#   default     = true
+# }
+
+# variable "iam_role_name_cluster" {
+#   type        = string
+#   description = "Name of the IAM role for the EKS cluster."
+#   default     = "appway-eks-cluster-role"
+# }
+
+# variable "iam_role_arn_cluster" {
+#   type        = string
+#   description = "ARN of the IAM role for the EKS cluster."
+#   default     = "arn:aws:iam::835735088523:role/appway-eks-cluster-role"
+# }
+
+variable "enable_irsa" {
+  type        = bool
+  description = "Determines whether to create an OpenID Connect Provider for EKS to enable IRSA"
+  default     = false
+}
+
+variable "cluster_enabled_log_types" {
+  type        = list(any)
+  description = "List of log types to enable for the EKS cluster."
+  default     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+}
+
+variable "create_node_security_group" {
+  type        = bool
+  description = "Determines whether to create a security group for the EKS nodes."
+  default     = true
+}
+
+variable "create_security_group" {
+  type        = bool
+  description = "Determines whether to create a security group for the EKS cluster."
+  default     = true
+}
+
+variable "create_node_iam_role" {
+  type        = bool
+  description = "Determines whether to create an IAM role for the EKS nodes."
+  default     = false
+}
+
+variable "create_auto_mode_iam_resources" {
+  type        = bool
+  description = "Determines whether to create auto mode IAM resources."
+  default     = false
+}
+
+variable "cluster_endpoint_private_access" {
+  type        = bool
+  description = "Indicates whether or not the Amazon EKS private API server endpoint is enabled."
+  default     = true
+}
+
+variable "cluster_endpoint_public_access" {
+  type        = bool
+  description = "Indicates whether or not the Amazon EKS public API server endpoint is enabled."
+  default     = true
+}
+
+variable "enable_cluster_creator_admin_permissions" {
+  type        = bool
+  description = "Indicates whether to enable cluster creator admin permissions."
+  default     = true
+}
+
+variable "node_name" {
+  type        = string
+  description = "Name of the EKS node group."
+  default     = "test"
+}
+
+variable "instance_types" {
+  type        = list(any)
+  description = "Instance types to use for the EKS nodes."
+  default     = ["t3.small"] #["t2.small"]  #["m4.2xlarge"]
+}
+
+variable "min_size" {
+  type        = number
+  description = "Minimum number of nodes in the EKS node group."
+  default     = 1
+}
+
+variable "max_size" {
+  type        = number
+  description = "Maximum number of nodes in the EKS node group."
+  default     = 1
+}
+
+variable "desired_size" {
+  type        = number
+  description = "Desired number of nodes in the EKS node group."
+  default     = 1
+}
+
+# variable "iam_role_arn_node" {
+#   type        = string
+#   description = "ARN of the IAM role for the EKS nodes."
+#   default     = "arn:aws:iam::835735088523:role/appway-eks-node-role"
+# }
+
+variable "disk_size" {
+  type        = number
+  description = "Disk size of the EKS nodes."
+  default     = 100
+}
+
+variable "eks_access_principal_arn" {
+  type        = string
+  description = "ARN of the principal for the EKS access."
+  default     = "arn:aws:iam::807291694811:user/admin"
+}
+
+variable "eks_access_policy_arn" {
+  type        = string
+  description = "ARN of the policy for the EKS access."
+  default     = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
+}

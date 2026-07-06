@@ -56,3 +56,34 @@ output "repository_name" {
 output "repository_arn" {
   value = module.ecr.repository_arn
 }
+
+# EKS
+output "eks_cluster_id" {
+  description = "EKS Cluster ID"
+  value       = { for k, v in module.eks : k => v.cluster_id }
+}
+
+output "eks_cluster_endpoint" {
+  description = "EKS Cluster Endpoint"
+  value       = { for k, v in module.eks : k => v.cluster_endpoint }
+}
+
+output "eks_cluster_oidc_issuer_url" {
+  description = "EKS Cluster oidc_issuer_url"
+  value       = { for k, v in module.eks : k => v.cluster_oidc_issuer_url }
+}
+
+output "eks_oidc_provider_arn" {
+  description = "EKS Cluster oidc_provider_arn"
+  value       = { for k, v in module.eks : k => v.oidc_provider_arn }
+}
+
+output "eks_asg_name" {
+  description = "EKS autoscaling group name for managed node group 'one' per env"
+  value       = { for k, v in module.eks : k => v.eks_asg_name }
+}
+
+output "region" {
+  description = "current_region"
+  value       = var.region
+}
