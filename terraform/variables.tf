@@ -87,12 +87,6 @@ variable "bucket_name" {
   description = "S3 name"
 }
 
-variable "cluster_name" {
-  type        = string
-  description = "Cluster name."
-  default     = "pr-aws-eks"
-}
-
 #EKS
 variable "cluster_name" {
   type        = string
