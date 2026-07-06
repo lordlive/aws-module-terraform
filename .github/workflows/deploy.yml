@@ -84,7 +84,14 @@ jobs:
       run: terraform -chdir=${TERRAFORM_DIR} init
 
     - name: Plan Terraform deployment
-      run: terraform -chdir=${TERRAFORM_DIR} plan
+      run: terraform -chdir=${TERRAFORM_DIR} plan -out=tfplan
+
+    - name: Upload Terraform Plan
+      uses: actions/upload-artifact@v7
+      with:
+        name: terraform-plan
+        path: ${{ env.TERRAFORM_DIR }}/tfplan
+        retention-days: 1
 
   terraform-apply:
     runs-on: ubuntu-latest
@@ -94,6 +101,12 @@ jobs:
     # 1. Downloading the code from the repository to the virtual machine GitHub
     - name: Checkout Source Code
       uses: actions/checkout@v6
+
+    - name: Download Terraform Plan
+      uses: actions/download-artifact@v8
+      with:
+        name: terraform-plan
+        path: ${{ env.TERRAFORM_DIR }}
 
     - name: configure aws credentials
       uses: aws-actions/configure-aws-credentials@v6
@@ -128,4 +141,4 @@ jobs:
       run: terraform -chdir=${TERRAFORM_DIR} init
 
     - name: Plan Terraform deployment
-      run: terraform -chdir=${TERRAFORM_DIR} apply -auto-approve
+      run: terraform -chdir=${TERRAFORM_DIR} apply tfplan
