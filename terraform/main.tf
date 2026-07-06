@@ -85,5 +85,5 @@ module "eks" {
   desired_size   = var.desired_size
   disk_size      = var.disk_size
 
-  depends_on = [module.vpc]
+  # depends_on = [module.vpc]
 }
