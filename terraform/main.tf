@@ -58,8 +58,8 @@ module "eks" {
   # iam_role_arn_node              = var.iam_role_arn_node
 
   # Network settings - Switcher: if switcher_default_vpc = false, use existing IDs, if true use IDs from VPC module
-  vpc_id          = data.aws_vpc.main.id
-  private_subnets = data.aws_subnets.private_subnets.ids
+  vpc_id          = module.vpc[dev].vpc_id
+  private_subnets = module.vpc[dev].aws_subnets.private_subnets.ids
 
   # Security groups configuration
   create_node_security_group = var.create_node_security_group
