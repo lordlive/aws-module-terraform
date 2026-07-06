@@ -89,6 +89,47 @@ module "eks" {
 }
 
 # RDS
+
+resource "aws_db_subnet_group" "rds" {
+  name_prefix = "${var.app_name}-${var.environment}-db-subnet-group-"
+  subnet_ids  = module.vpc[each.value].database_subnets
+
+  tags = {
+    Name = "${var.app_name}-${var.environment}-db-subnet-group"
+  }
+}
+
+resource "aws_security_group" "rds" {
+  name_prefix = "${var.app_name}-${var.environment}-sg-"
+  description = "Security Group for ${var.app_name}-${var.environment} instances"
+  vpc_id      = module.vpc[each.value].vpc_id
+
+  lifecycle {
+    create_before_destroy = true
+  }
+
+  tags = {
+    Name = "${var.app_name}-${var.environment}-sg"
+  }
+}
+
+resource "aws_vpc_security_group_egress_rule" "rds" {
+  ip_protocol       = "-1"
+  cidr_ipv4         = module.vpc[each.value].vpc_cidr_block # "0.0.0.0/0"
+  description       = "Allow egress"
+  security_group_id = aws_security_group.rds.id
+}
+
+resource "aws_vpc_security_group_ingress_rule" "rds" {
+  ip_protocol       = "tcp"
+  cidr_ipv4         = module.vpc[each.value].vpc_cidr_block #"0.0.0.0/0"
+  description       = "Allow ingress"
+  security_group_id = aws_security_group.rds.id
+  from_port         = var.rds_port
+  to_port           = var.rds_port
+}
+
+
 module "rds" {
   for_each = toset(var.env)
   source   = "./modules/rds"
@@ -128,11 +169,11 @@ module "rds" {
 
   # Network settings
   database_subnets       = data.aws_subnets.private_subnets.ids
-  db_subnet_group_name   = aws_db_subnet_group.this.name
-  vpc_security_group_ids = [aws_security_group.this.id]
+  db_subnet_group_name   = aws_db_subnet_group.rds.name
+  vpc_security_group_ids = [aws_security_group.rds.id]
 
   depends_on = [
-    aws_db_subnet_group.this,
-    aws_security_group.this
+    aws_db_subnet_group.rds,
+    aws_security_group.rds
   ]
 }
