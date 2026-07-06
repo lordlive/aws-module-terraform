@@ -172,8 +172,8 @@ module "rds" {
   db_subnet_group_name   = aws_db_subnet_group.rds.name
   vpc_security_group_ids = [aws_security_group.rds.id]
 
-  depends_on = [
-    aws_db_subnet_group.rds,
-    aws_security_group.rds
-  ]
+  # depends_on = [
+  #   aws_db_subnet_group.rds,
+  #   aws_security_group.rds
+  # ]
 }
