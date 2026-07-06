@@ -20,6 +20,7 @@ env:
 jobs:
   terraform-check:
     runs-on: ubuntu-latest
+    environment: dev
 
     steps:
     # 1. Downloading the code from the repository to the virtual machine GitHub
@@ -27,7 +28,7 @@ jobs:
       uses: actions/checkout@v6
 
     - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v2
+      uses: hashicorp/setup-terraform@v4
       with:
         terraform_version: 1.15
   
@@ -42,20 +43,22 @@ jobs:
 
   terraform-plan:
     runs-on: ubuntu-latest
+    environment: dev
+    needs: terraform-check
     steps:
     # 1. Downloading the code from the repository to the virtual machine GitHub
     - name: Checkout Source Code
       uses: actions/checkout@v6
 
     - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v6.2.1
+      uses: aws-actions/configure-aws-credentials@v6
       with:
         role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
         role-session-name: samplerolesession
         aws-region: ${{ vars.AWS_REGION }}
 
     - name: Set up Terraform
-      uses: hashicorp/setup-terraform@v2
+      uses: hashicorp/setup-terraform@v4
       with:
         terraform_version: 1.15
   
@@ -83,5 +86,47 @@ jobs:
     - name: Plan Terraform deployment
       run: terraform -chdir=${TERRAFORM_DIR} plan
 
-    # - name: Apply Terraform deployment
-    #   run: terraform -chdir=${TERRAFORM_DIR} apply -auto-approve
+  # terraform-apply:
+  #   runs-on: ubuntu-latest
+  #   environment: dev/review
+  #   needs: terraform-plan
+  #   steps:
+  #   # 1. Downloading the code from the repository to the virtual machine GitHub
+  #   - name: Checkout Source Code
+  #     uses: actions/checkout@v6
+
+  #   - name: configure aws credentials
+  #     uses: aws-actions/configure-aws-credentials@v6
+  #     with:
+  #       role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+  #       role-session-name: samplerolesession
+  #       aws-region: ${{ vars.AWS_REGION }}
+
+  #   - name: Set up Terraform
+  #     uses: hashicorp/setup-terraform@v4
+  #     with:
+  #       terraform_version: 1.15
+  
+  #   - name: Test install app
+  #     run: |
+  #         echo "Testing app installation..."
+  #         terraform --version
+  #         aws --version
+  #         aws sts get-caller-identity
+  #         echo "Using S3 key ${TERRAFORM_BACKEND_S3_KEYNAME} in bucket ${TERRAFORM_BACKEND_S3_BUCKET};"
+  #         cat <<-EOF > ${TERRAFORM_DIR}/backend.tf
+  #           terraform {
+  #             backend "s3" {
+  #               bucket         = "${TERRAFORM_BACKEND_S3_BUCKET}"
+  #               region         = "${AWS_REGION:-eu-central-1}"
+  #               key            = "${TERRAFORM_BACKEND_S3_KEYNAME}"
+  #             }
+  #           }
+  #         EOF
+  #         cat ${TERRAFORM_DIR}/backend.tf
+
+  #   - name: Initialize Terraform
+  #     run: terraform -chdir=${TERRAFORM_DIR} init
+
+  #   - name: Plan Terraform deployment
+  #     run: terraform -chdir=${TERRAFORM_DIR} apply -auto-approve
