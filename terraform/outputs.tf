@@ -43,3 +43,16 @@ output "azs" {
   description = "A list of availability zones specified as argument to this module"
   value       = { for k, v in module.vpc : k => v.azs }
 }
+
+### ECR
+output "repository_id" {
+  value = module.ecr.repository_id
+}
+
+output "repository_name" {
+  value = module.ecr.repository_name
+}
+
+output "repository_arn" {
+  value = module.ecr.repository_arn
+}

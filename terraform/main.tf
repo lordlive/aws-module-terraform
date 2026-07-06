@@ -24,3 +24,8 @@ module "vpc" {
   single_nat_gateway     = var.vpc_single_nat_gateway
   one_nat_gateway_per_az = var.vpc_one_nat_gateway_per_az
 }
+
+module "ecr" {
+  source      = "./modules/ecr"
+  environment = var.environment
+}
