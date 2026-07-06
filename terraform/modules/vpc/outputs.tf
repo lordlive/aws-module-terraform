@@ -45,5 +45,5 @@ output "azs" {
 
 output "alb_security_group_id" {
   description = "Security group ID for the ALB"
-  value       = module.vpc.aws_security_group.this.id
+  value       = aws_security_group.this.id
 }
