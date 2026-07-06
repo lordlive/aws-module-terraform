@@ -14,6 +14,7 @@ vpc_enable_nat_gateway     = true
 vpc_single_nat_gateway     = true
 vpc_one_nat_gateway_per_az = false
 
-env    = ["dev"]
-region = "eu-central-1"
+env         = ["dev"]
+region      = "eu-central-1"
+environment = "dev"
 # create_access_entries = true
