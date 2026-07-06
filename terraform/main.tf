@@ -168,7 +168,7 @@ module "rds" {
   skip_final_snapshot = var.rds_skip_final_snapshot
 
   # Network settings
-  database_subnets       = data.aws_subnets.private_subnets.ids
+  database_subnets       = module.vpc[each.value].database_subnets
   db_subnet_group_name   = aws_db_subnet_group.rds.name
   vpc_security_group_ids = [aws_security_group.rds.id]
 
