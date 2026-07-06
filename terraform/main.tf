@@ -91,17 +91,21 @@ module "eks" {
 # RDS
 
 resource "aws_db_subnet_group" "rds" {
-  name_prefix = "${var.app_name}-${var.environment}-db-subnet-group-"
+  for_each = toset(var.env)
+
+  name_prefix = "${var.app_name}-${each.value}-db-subnet-group-"
   subnet_ids  = module.vpc[each.value].database_subnets
 
   tags = {
-    Name = "${var.app_name}-${var.environment}-db-subnet-group"
+    Name = "${var.app_name}-${each.value}-db-subnet-group"
   }
 }
 
 resource "aws_security_group" "rds" {
-  name_prefix = "${var.app_name}-${var.environment}-sg-"
-  description = "Security Group for ${var.app_name}-${var.environment} instances"
+  for_each = toset(var.env)
+
+  name_prefix = "${var.app_name}-${each.value}-sg-"
+  description = "Security Group for ${var.app_name}-${each.value} instances"
   vpc_id      = module.vpc[each.value].vpc_id
 
   lifecycle {
@@ -109,11 +113,13 @@ resource "aws_security_group" "rds" {
   }
 
   tags = {
-    Name = "${var.app_name}-${var.environment}-sg"
+    Name = "${var.app_name}-${each.value}-sg"
   }
 }
 
 resource "aws_vpc_security_group_egress_rule" "rds" {
+  for_each = toset(var.env)
+
   ip_protocol       = "-1"
   cidr_ipv4         = module.vpc[each.value].vpc_cidr_block # "0.0.0.0/0"
   description       = "Allow egress"
@@ -121,6 +127,8 @@ resource "aws_vpc_security_group_egress_rule" "rds" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "rds" {
+  for_each = toset(var.env)
+
   ip_protocol       = "tcp"
   cidr_ipv4         = module.vpc[each.value].vpc_cidr_block #"0.0.0.0/0"
   description       = "Allow ingress"
