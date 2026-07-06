@@ -132,5 +132,5 @@ jobs:
     - name: Initialize Terraform
       run: terraform -chdir=${TERRAFORM_DIR} init
 
-    - name: Plan Terraform deployment
+    - name: Apply Terraform deployment
       run: terraform -chdir=${TERRAFORM_DIR} apply tfplan
