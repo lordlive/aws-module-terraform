@@ -123,7 +123,7 @@ resource "aws_vpc_security_group_egress_rule" "rds" {
   ip_protocol       = "-1"
   cidr_ipv4         = module.vpc[each.value].vpc_cidr_block # "0.0.0.0/0"
   description       = "Allow egress"
-  security_group_id = aws_security_group.rds.id
+  security_group_id = aws_security_group.rds[each.value].id
 }
 
 resource "aws_vpc_security_group_ingress_rule" "rds" {
@@ -132,7 +132,7 @@ resource "aws_vpc_security_group_ingress_rule" "rds" {
   ip_protocol       = "tcp"
   cidr_ipv4         = module.vpc[each.value].vpc_cidr_block #"0.0.0.0/0"
   description       = "Allow ingress"
-  security_group_id = aws_security_group.rds.id
+  security_group_id = aws_security_group.rds[each.value].id
   from_port         = var.rds_port
   to_port           = var.rds_port
 }
@@ -177,8 +177,8 @@ module "rds" {
 
   # Network settings
   database_subnets       = module.vpc[each.value].database_subnets
-  db_subnet_group_name   = aws_db_subnet_group.rds.name
-  vpc_security_group_ids = [aws_security_group.rds.id]
+  db_subnet_group_name   = aws_db_subnet_group.rds[each.value].name
+  vpc_security_group_ids = [aws_security_group.rds[each.value].id]
 
   # depends_on = [
   #   aws_db_subnet_group.rds,
