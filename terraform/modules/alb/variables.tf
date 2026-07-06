@@ -23,3 +23,8 @@ variable "certificate_arn" {
   description = "Certificate ARN for an Application Load Balancer"
   default     = "arn:aws:acm:eu-central-1:807291694811:certificate/586747aa-bdba-4796-8503-ad4d00793a8d"
 }
+
+variable "app_name" {
+  type        = string
+  description = "Application name to be using to name the resources"
+}

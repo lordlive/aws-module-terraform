@@ -2,7 +2,7 @@ module "alb" {
   source  = "terraform-aws-modules/alb/aws"
   version = "~> 6.0"
 
-  name = "deps-alb"
+  name = var.app_name
 
   load_balancer_type         = "application"
   enable_deletion_protection = false
