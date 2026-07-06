@@ -81,6 +81,11 @@ variable "vpc_one_nat_gateway_per_az" {
   default     = true
 }
 
+# S3
+variable "bucket_name" {
+  type        = string
+  description = "S3 name"
+}
 
 variable "cluster_name" {
   type        = string

@@ -18,3 +18,5 @@ env         = ["dev"]
 region      = "eu-central-1"
 environment = "dev"
 # create_access_entries = true
+
+bucket_name = "807291694811-dev-bucket"

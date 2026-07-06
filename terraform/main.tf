@@ -29,3 +29,8 @@ module "ecr" {
   source      = "./modules/ecr"
   environment = var.environment
 }
+
+module "s3" {
+  source      = "./modules/s3"
+  bucket_name = var.app_name
+}
