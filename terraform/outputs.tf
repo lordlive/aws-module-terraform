@@ -44,6 +44,11 @@ output "azs" {
   value       = { for k, v in module.vpc : k => v.azs }
 }
 
+output "alb_security_group_id" {
+  description = "Security group ID for the ALB"
+  value       = module.vpc.alb_security_group_id
+}
+
 ### ECR
 output "repository_id" {
   value = module.ecr.repository_id
