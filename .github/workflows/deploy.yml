@@ -1,5 +1,5 @@
 name: Deploy Terraform IaC
-# Deploy instance using Terraform
+# Deploy infrastructure using Terraform
 
 on:
   push:

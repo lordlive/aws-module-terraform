@@ -1,8 +1,9 @@
 name: Destroy Terraform IaC
-# Destroy EC2 instance using Terraform
+# Destroy infrastructure using Terraform
 
 on:
-  workflow_dispatch:
+  push:
+  # workflow_dispatch:
 
 concurrency:  
   group: ${{ github.workflow }}-${{ github.ref }}  
@@ -50,8 +51,8 @@ jobs:
           EOF
           cat ${TERRAFORM_DIR}/backend.tf
 
-    - name: Initialize Terraform
-      run: terraform -chdir=${TERRAFORM_DIR} init
+    # - name: Initialize Terraform
+    #   run: terraform -chdir=${TERRAFORM_DIR} init
 
-    - name: Destroy Terraform deployment
-      run: terraform -chdir=${TERRAFORM_DIR} destroy -auto-approve
+    # - name: Destroy Terraform deployment
+    #   run: terraform -chdir=${TERRAFORM_DIR} destroy -auto-approve
