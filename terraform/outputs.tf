@@ -87,3 +87,25 @@ output "region" {
   description = "current_region"
   value       = var.region
 }
+
+# RDS
+output "rds_db_host" {
+  description = "The host address of the RDS instance"
+  value       = { for k, v in module.rds : k => v.db_instance_address }
+}
+
+output "rds_db_username" {
+  description = "The username for the RDS database"
+  value       = { for k, v in module.rds : k => v.db_instance_username }
+}
+
+output "rds_db_password" {
+  description = "The password for the RDS database"
+  value       = { for k, v in module.rds : k => v.db_instance_password }
+  sensitive   = true
+}
+
+output "rds_db_port" {
+  description = "The port of the RDS instance"
+  value       = { for k, v in module.rds : k => v.db_instance_port }
+}

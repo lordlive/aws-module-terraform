@@ -225,3 +225,146 @@ variable "eks_access_policy_arn" {
   description = "ARN of the policy for the EKS access."
   default     = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSClusterAdminPolicy"
 }
+
+# RDS
+# variable "rds_name" {
+#   type        = string
+#   description = "Name RDS instance"
+#   default     = "rds"
+# }
+
+variable "rds_engine" {
+  type        = string
+  description = "The database Engine to use"
+  default     = "postgres"
+}
+
+variable "rds_engine_version" {
+  type        = string
+  description = "The database Engine version"
+  default     = "15.14"
+}
+
+variable "rds_family" {
+  type        = string
+  description = "The family of the DB parameter group"
+  default     = "postgres15"
+}
+
+variable "rds_major_engine_version" {
+  type        = string
+  description = "Specifies the major of the engine that this group should associated with"
+  default     = "15"
+}
+
+variable "rds_instance_class" {
+  type        = string
+  description = "The instance type of the RDS instance"
+  default     = "db.t3.micro"
+}
+
+variable "rds_allocated_storage" {
+  type        = string
+  description = "The allocate storage in gigabytes"
+  default     = "10"
+}
+
+variable "rds_storage_type" {
+  type        = string
+  description = "One of 'standard' (magnetic), 'gp2' (general purpose SSD), or 'io1' (provisioned IOPS SSD). The default is 'io1' if iops is specified, 'standard' if not."
+  default     = "gp2"
+}
+variable "rds_max_allocated_storage" {
+  type        = number
+  description = "Maximum storage value in gigabytes"
+  default     = 20
+}
+
+variable "rds_db_username" {
+  type        = string
+  description = "Username for the master DB user."
+  default     = "adminuser"
+}
+
+variable "rds_multi_az" {
+  type        = bool
+  description = "If the RDS instance is multi AZ enabled."
+  default     = false
+}
+
+variable "rds_storage_encrypted" {
+  type        = bool
+  description = "Specifies whether the DB instance is encrypted"
+  default     = true
+}
+
+# variable "rds_database_subnets" {
+#   type        = list(string)
+#   description = "A list of existing VPC subnet IDs for RDS database subnets (used when switcher_default_vpc = false). Example: [\"subnet-0fa48b12b28dff567\", \"subnet-07891652014e5f78a\"]"
+# }
+
+variable "rds_db_subnet_group_name" {
+  type        = string
+  description = "Existing DB Subnet Group name for RDS (used when switcher_default_vpc = false). Example: \"postgres-dev-subnet-group\". If empty, subnet group will be created automatically from rds_database_subnets."
+  default     = ""
+}
+
+variable "rds_vpc_security_group_ids" {
+  type        = list(string)
+  description = "List of existing VPC security group IDs for RDS (used when switcher_default_vpc = false). Example: [\"sg-043687485bc89e127\", \"sg-0f874a1c0324d0a8a\"]"
+  default     = [""]
+}
+
+variable "rds_maintenance_window" {
+  type        = string
+  description = "The window to perform maintenance in. Syntax: 'ddd:hh24:mi-ddd:hh24:mi'. Eg: 'Mon:00:00-Mon:03:00'"
+  default     = "Mon:00:00-Mon:03:00"
+}
+
+variable "rds_backup_window" {
+  type        = string
+  description = "The daily time range (in UTC) during which automated backups are created if they are enabled. Example: '09:46-10:16'. Must not overlap with maintenance_window"
+  default     = "03:00-06:00"
+}
+
+variable "rds_deletion_protection" {
+  type        = bool
+  description = "The database can't be deleted when this value is set to true."
+  default     = false
+}
+
+variable "rds_publicly_accessible" {
+  type        = bool
+  description = "Bool to control if instance is publicly accessible"
+  default     = false
+}
+
+variable "rds_port" {
+  type        = string
+  description = "The port on which the DB accepts connections"
+  default     = "5432"
+}
+
+variable "rds_ssl_connection" {
+  type        = string
+  description = "SSL connection setting for RDS (0 = disabled, 1 = enabled)"
+  default     = "0"
+}
+
+variable "rds_iam_database_authentication_enabled" {
+  type        = bool
+  description = "Specifies whether or not the mappings of AWS Identity and Access Management (IAM) accounts to database accounts is enabled"
+  default     = false
+}
+
+variable "rds_skip_final_snapshot" {
+  type        = bool
+  description = "Skip final snapshot when the RDS instance is deleted"
+  default     = true
+}
+
+variable "rds_manage_master_user_password" {
+  type        = bool
+  description = "Whether to manage the master user password. If false, the password will be managed by the user"
+  default     = false
+}

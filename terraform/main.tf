@@ -87,3 +87,52 @@ module "eks" {
 
   # depends_on = [module.vpc]
 }
+
+# RDS
+module "rds" {
+  for_each = toset(var.env)
+  source   = "./modules/rds"
+
+  # Common settings
+  env         = each.value
+  name        = "${each.value}-${var.app_name}"
+  environment = var.environment
+
+  # Database Engine settings
+  engine               = var.rds_engine
+  engine_version       = var.rds_engine_version
+  family               = var.rds_family
+  major_engine_version = var.rds_major_engine_version
+
+  # Instance configuration
+  instance_class        = var.rds_instance_class
+  storage_type          = var.rds_storage_type
+  allocated_storage     = var.rds_allocated_storage
+  max_allocated_storage = var.rds_max_allocated_storage
+  multi_az              = var.rds_multi_az
+  storage_encrypted     = var.rds_storage_encrypted
+  publicly_accessible   = var.rds_publicly_accessible
+
+  # Authentication and access
+  db_username                         = var.rds_db_username
+  port                                = var.rds_port
+  ssl_connection                      = var.rds_ssl_connection
+  iam_database_authentication_enabled = var.rds_iam_database_authentication_enabled
+  manage_master_user_password         = var.rds_manage_master_user_password
+
+  # Maintenance and backup
+  maintenance_window  = var.rds_maintenance_window
+  backup_window       = var.rds_backup_window
+  deletion_protection = var.rds_deletion_protection
+  skip_final_snapshot = var.rds_skip_final_snapshot
+
+  # Network settings
+  database_subnets       = data.aws_subnets.private_subnets.ids
+  db_subnet_group_name   = aws_db_subnet_group.this.name
+  vpc_security_group_ids = [aws_security_group.this.id]
+
+  depends_on = [
+    aws_db_subnet_group.this,
+    aws_security_group.this
+  ]
+}

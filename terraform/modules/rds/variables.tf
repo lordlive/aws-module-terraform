@@ -4,10 +4,10 @@ variable "environment" {
 }
 
 #RDS
-# variable "env" {
-#   type        = string
-#   description = "Environment name (dev, qa, prod, etc.)"
-# }
+variable "env" {
+  type        = string
+  description = "Environment name (dev, qa, prod, etc.)"
+}
 
 variable "name" {
   type        = string
