@@ -2,7 +2,6 @@ name: Destroy Terraform IaC
 # Destroy EC2 instance using Terraform
 
 on:
-  push:
   workflow_dispatch:
 
 concurrency:  
@@ -20,6 +19,14 @@ jobs:
     # 1. Downloading the code from the repository to the virtual machine GitHub
     - name: Checkout Source Code
       uses: actions/checkout@v6
+
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v6.2.1
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+        role-session-name: samplerolesession
+        aws-region: ${{ env.AWS_REGION }}      
+
     - name: Set up Terraform
       uses: hashicorp/setup-terraform@v2
       with:
