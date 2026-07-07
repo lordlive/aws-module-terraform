@@ -97,7 +97,7 @@ variable "cluster_name" {
 variable "cluster_version" {
   type        = string
   description = "Kubernetes version to use for the EKS cluster."
-  default     = "1.35"
+  default     = "1.36"
 }
 
 # variable "create_iam_role" {
