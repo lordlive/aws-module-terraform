@@ -28,3 +28,8 @@ variable "app_name" {
   type        = string
   description = "Application name to be using to name the resources"
 }
+
+variable "cluster_name" {
+  type        = string
+  description = "Cluster name."
+}

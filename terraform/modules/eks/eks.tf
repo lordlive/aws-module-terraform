@@ -85,6 +85,18 @@ module "eks" {
     }
   }
 
+  # Security rule to pass traffic from ALB to pods
+  node_security_group_additional_rules = {
+    ingress_alb_to_pods = {
+      description              = "Allow HTTP traffic from ALB to pods"
+      protocol                 = "tcp"
+      from_port                = 0
+      to_port                  = 65535
+      type                     = "ingress"
+      source_security_group_id = module.vpc[each.value].alb_security_group_id # Security Group ID for ALB
+    }
+  }
+
   # Access entries configuration
   access_entries = {
     admin = {

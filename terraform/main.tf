@@ -187,9 +187,10 @@ module "rds" {
 
 # ALB
 module "alb" {
-  for_each = toset(var.env)
-  source   = "./modules/alb"
-  app_name = "${var.app_name}-${var.environment}-alb"
+  for_each     = toset(var.env)
+  source       = "./modules/alb"
+  app_name     = "${var.app_name}-${var.environment}-alb"
+  cluster_name = var.cluster_name
 
   # # Common settings
   # env = each.value

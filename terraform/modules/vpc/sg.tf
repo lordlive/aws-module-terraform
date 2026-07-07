@@ -1,3 +1,4 @@
+# Security Group for ALB
 resource "aws_security_group" "this" {
   name_prefix = "${var.vpc_name}-${var.env}-sg-"
   description = "Security Group for ${var.vpc_name}-${var.env} instances"

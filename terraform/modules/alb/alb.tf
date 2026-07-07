@@ -11,12 +11,27 @@ module "alb" {
   subnets         = var.subnets
   security_groups = var.security_groups
 
+  # Port configuration for the ALB (in previous config)
+  # target_groups = [
+  #   {
+  #     name             = "eks-nodes"
+  #     backend_protocol = "HTTPS"
+  #     backend_port     = 32000
+  #     target_type      = "instance"
+  #   }
+  # ]
+
   target_groups = [
     {
-      name             = "eks-nodes"
-      backend_protocol = "HTTPS"
-      backend_port     = 32000
-      target_type      = "instance"
+      name             = "eks-auth-tg"
+      backend_protocol = "HTTP"
+      backend_port     = 80
+      target_type      = "ip"
+
+      tags = {
+        "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+      }
+
     }
   ]
 
@@ -51,10 +66,12 @@ module "alb" {
 #   lb_target_group_arn   = module.alb.target_group_arns[0]
 # }
 
-resource "aws_autoscaling_attachment" "asg_attachment_nodes" {
-  autoscaling_group_name = var.eks_asg_name
-  lb_target_group_arn    = module.alb.target_group_arns[0]
-}
+
+# Port configuration for the ALB (in previous config)
+# resource "aws_autoscaling_attachment" "asg_attachment_nodes" {
+#   autoscaling_group_name = var.eks_asg_name
+#   lb_target_group_arn    = module.alb.target_group_arns[0]
+# }
 
 
 
