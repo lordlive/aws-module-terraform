@@ -29,7 +29,7 @@ bucket_name = "807291694811-dev-bucket"
 cluster_name = "eks-alpha-dev"
 min_size     = 1
 max_size     = 3
-desired_size = 2
+desired_size = 1
 disk_size    = 20
 
 create_node_iam_role = true
