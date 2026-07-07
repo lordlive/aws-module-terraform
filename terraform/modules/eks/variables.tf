@@ -29,10 +29,10 @@ variable "private_subnets" {
   description = "A list of private subnets to place the EKS cluster and workers within. Can be from existing resources or VPC module."
 }
 
-# variable "create_iam_role" {
-#   type        = bool
-#   description = "Determines whether to create an IAM role for the EKS cluster."
-# }
+variable "create_iam_role" {
+  type        = bool
+  description = "Determines whether to create an IAM role for the EKS cluster."
+}
 
 # variable "iam_role_name_cluster" {
 #   type        = string

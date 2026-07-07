@@ -16,7 +16,7 @@ module "eks" {
   subnet_ids               = var.private_subnets
 
   # IAM configuration
-  # create_iam_role = var.create_iam_role
+  create_iam_role = var.create_iam_role
   # iam_role_name   = var.iam_role_name_cluster
   # iam_role_arn    = var.iam_role_arn_cluster
   # enable_irsa                    = var.enable_irsa
@@ -64,7 +64,7 @@ module "eks" {
       desired_size = var.desired_size
 
       # IAM configuration
-      # create_iam_role = var.create_node_iam_role
+      create_iam_role = var.create_node_iam_role
       # iam_role_arn    = var.iam_role_arn_node
 
       # Security groups

@@ -31,3 +31,5 @@ min_size     = 1
 max_size     = 3
 desired_size = 2
 disk_size    = 20
+
+create_node_iam_role = true

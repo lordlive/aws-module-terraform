@@ -100,11 +100,11 @@ variable "cluster_version" {
   default     = "1.36"
 }
 
-# variable "create_iam_role" {
-#   type        = bool
-#   description = "Determines whether to create an IAM role for the EKS cluster."
-#   default     = true
-# }
+variable "create_iam_role" {
+  type        = bool
+  description = "Determines whether to create an IAM role for the EKS cluster."
+  default     = true
+}
 
 # variable "iam_role_name_cluster" {
 #   type        = string

@@ -49,7 +49,7 @@ module "eks" {
   # cluster_enabled_log_types = var.cluster_enabled_log_types
 
   # IAM configuration
-  #   create_iam_role       = var.create_iam_role
+  create_iam_role = var.create_iam_role
   #   iam_role_name_cluster = var.iam_role_name_cluster
   #   iam_role_arn_cluster  = var.iam_role_arn_cluster
   # enable_irsa                    = var.enable_irsa
