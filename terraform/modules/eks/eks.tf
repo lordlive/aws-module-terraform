@@ -3,7 +3,7 @@ module "eks" {
   version = "~> 21.7.0"
 
   # Common settings
-  name   = "${var.cluster_name}-${var.env}"
+  name   = var.cluster_name
   region = var.region
 
   # Cluster configuration
