@@ -66,7 +66,7 @@ output "repository_arn" {
 # EKS
 output "eks_cluster_id" {
   description = "EKS Cluster ID"
-  value       = { for k, v in module.eks : k => try(v.cluster_id, v.cluster_name, null) }
+  value       = { for k, v in module.eks : k => coalesce(v.cluster_id, v.cluster_name, v.cluster_arn, null) }
 }
 
 output "eks_cluster_arn" {

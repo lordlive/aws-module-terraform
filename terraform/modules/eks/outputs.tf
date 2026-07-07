@@ -10,7 +10,7 @@ output "cluster_arn" {
 
 output "cluster_id" {
   description = "EKS Cluster ID"
-  value       = try(module.eks.cluster_id, module.eks.cluster_name, null)
+  value       = coalesce(module.eks.cluster_id, module.eks.cluster_name, module.eks.cluster_arn, null)
 }
 
 output "cluster_endpoint" {
