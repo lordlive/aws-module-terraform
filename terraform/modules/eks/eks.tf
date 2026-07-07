@@ -95,6 +95,18 @@ module "eks" {
           }
         }
       }
-    }
+    },
+    readonly = {
+      principal_arn = "arn:aws:iam::807291694811:user/poweruser"
+      policy_associations = {
+        admin = {
+          policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSAdminViewPolicy"
+          access_scope = {
+            type = "cluster"
+          }
+        }
+      }
+    },
+
   }
 }
