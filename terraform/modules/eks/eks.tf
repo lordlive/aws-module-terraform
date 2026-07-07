@@ -93,7 +93,7 @@ module "eks" {
       from_port                = 0
       to_port                  = 65535
       type                     = "ingress"
-      source_security_group_id = module.vpc[each.value].alb_security_group_id # Security Group ID for ALB
+      source_security_group_id = var.alb_security_group_id # Security Group ID for ALB
     }
   }
 

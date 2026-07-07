@@ -134,6 +134,11 @@ variable "eks_access_policy_arn" {
   description = "ARN of the policy for the EKS access."
 }
 
+variable "alb_security_group_id" {
+  type        = string
+  description = "The Security Group for ALB"
+}
+
 # variable "security_group_list" {
 #   type        = list(string)
 #   description = "List of additional security group IDs to attach to EKS node groups"

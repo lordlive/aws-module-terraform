@@ -85,6 +85,8 @@ module "eks" {
   desired_size   = var.desired_size
   disk_size      = var.disk_size
 
+  alb_security_group_id = module.vpc[each.value].alb_security_group_id # Security Group ID for ALB
+
   # depends_on = [module.vpc]
 }
 
