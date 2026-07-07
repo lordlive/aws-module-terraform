@@ -125,3 +125,9 @@ output "rds_db_port" {
   description = "The port of the RDS instance"
   value       = { for k, v in module.rds : k => v.db_instance_port }
 }
+
+# ALB
+output "alb_target_group_arn" {
+  # value = module.alb["dev"].target_group_arn
+  value = { for k, v in module.alb : k => v.target_group_arn }
+}
