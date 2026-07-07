@@ -32,7 +32,7 @@ module "ecr" {
 
 module "s3" {
   source      = "./modules/s3"
-  bucket_name = var.app_name
+  bucket_name = "${var.bucket_name}-${var.environment}"
 }
 
 module "eks" {
@@ -89,7 +89,6 @@ module "eks" {
 }
 
 # RDS
-
 resource "aws_db_subnet_group" "rds" {
   for_each = toset(var.env)
 

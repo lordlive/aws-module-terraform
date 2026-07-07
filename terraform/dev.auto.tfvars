@@ -7,7 +7,7 @@ environment = "dev"
 # VPC
 # switcher_default_vpc = false
 # create_vpc_endpoint  = true
-app_name = "aws-module-terraform"
+app_name = "aws-module"
 
 vpc_cidr             = "10.0.0.0/20"
 vpc_azs              = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
@@ -25,7 +25,9 @@ vpc_one_nat_gateway_per_az = false
 bucket_name = "807291694811-dev-bucket"
 
 # EKS
+
+cluster_name = "eks-alpha-dev"
 min_size     = 1
-max_size     = 2
-desired_size = 1
+max_size     = 3
+desired_size = 2
 disk_size    = 20
