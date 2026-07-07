@@ -5,7 +5,7 @@ output "cluster_name" {
 
 output "cluster_id" {
   description = "EKS Cluster ID"
-  value       = module.eks.cluster_id
+  value       = try(module.eks.cluster_id, module.eks.cluster_name, null)
 }
 
 output "cluster_endpoint" {

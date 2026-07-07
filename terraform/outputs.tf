@@ -66,7 +66,7 @@ output "repository_arn" {
 # EKS
 output "eks_cluster_id" {
   description = "EKS Cluster ID"
-  value       = { for k, v in module.eks : k => v.cluster_id }
+  value       = { for k, v in module.eks : k => try(v.cluster_id, v.cluster_name, null) }
 }
 
 output "eks_cluster_endpoint" {
