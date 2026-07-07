@@ -69,6 +69,16 @@ output "eks_cluster_id" {
   value       = { for k, v in module.eks : k => try(v.cluster_id, v.cluster_name, null) }
 }
 
+output "eks_cluster_arn" {
+  description = "EKS Cluster ARN"
+  value       = { for k, v in module.eks : k => v.cluster_arn }
+}
+
+output "eks_cluster_name" {
+  description = "EKS Cluster Name"
+  value       = { for k, v in module.eks : k => v.cluster_name }
+}
+
 output "eks_cluster_endpoint" {
   description = "EKS Cluster Endpoint"
   value       = { for k, v in module.eks : k => v.cluster_endpoint }

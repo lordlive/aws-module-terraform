@@ -3,6 +3,11 @@ output "cluster_name" {
   value       = module.eks.cluster_name
 }
 
+output "cluster_arn" {
+  description = "EKS Cluster ARN"
+  value       = module.eks.cluster_arn
+}
+
 output "cluster_id" {
   description = "EKS Cluster ID"
   value       = try(module.eks.cluster_id, module.eks.cluster_name, null)
