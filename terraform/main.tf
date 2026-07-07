@@ -195,7 +195,7 @@ module "alb" {
   # env = each.value
 
   vpc_id          = module.vpc[each.value].vpc_id
-  subnets         = module.vpc[each.value].private_subnets # data.aws_subnets.private_subnets.ids # , data.aws_subnets.public_subnets.ids]
+  subnets         = module.vpc[each.value].public_subnets # data.aws_subnets.private_subnets.ids # , data.aws_subnets.public_subnets.ids]
   security_groups = [module.vpc[each.value].alb_security_group_id]
   eks_asg_name    = module.eks[each.value].eks_asg_name # data.aws_autoscaling_group.eks_asg.name
 }
