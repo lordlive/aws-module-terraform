@@ -66,7 +66,9 @@ module "eks" {
       # IAM configuration
       create_iam_role = var.create_node_iam_role
       # iam_role_arn    = var.iam_role_arn_node
-
+      iam_role_additional_policies = {
+        AmazonEC2ContainerRegistryReadOnly = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+      }
       # Security groups
       # vpc_security_group_ids = var.security_group_list
 
