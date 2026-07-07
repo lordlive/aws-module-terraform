@@ -1,7 +1,3 @@
-locals {
-  eks_cluster_name = "${var.cluster_name}-${var.env}"
-}
-
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "~> 6.5.0"
