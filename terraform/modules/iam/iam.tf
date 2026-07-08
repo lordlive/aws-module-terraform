@@ -6,7 +6,7 @@ resource "aws_iam_policy" "aws_lb_controller" {
 }
 
 resource "aws_iam_role" "aws_lb_controller" {
-  name = "eks-aws-load-balancer-controller-role"
+  name = "EKS-AWS-Load-Balancer-Controller-${var.env}-Role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
