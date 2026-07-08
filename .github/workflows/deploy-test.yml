@@ -36,7 +36,7 @@ env:
   TF_VAR_vpc_single_nat_gateway: true
   TF_VAR_vpc_one_nat_gateway_per_az: false
   # S3
-  TF_VAR_bucket_name: "807291694811-dev-bucket"
+  TF_VAR_bucket_name: "807291694811-test-bucket"
   # EKS
   TF_VAR_cluster_name: "eks-beta-test"
   TF_VAR_node_name: "node-beta"
@@ -65,3 +65,104 @@ jobs:
       run: |
            echo "Testing app installation..."
            terraform --version
+
+    - name: Validate Terraform configuration
+      run: terraform -chdir=${TERRAFORM_DIR} fmt -check
+
+
+  terraform-plan:
+    runs-on: ubuntu-latest
+    environment: dev
+    needs: terraform-check
+
+    steps:
+    # 1. Downloading the code from the repository to the virtual machine GitHub
+    - name: Checkout Source Code
+      uses: actions/checkout@v6
+
+    - name: Authorize to AWS
+      uses: aws-actions/configure-aws-credentials@v6
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+        aws-region: ${{ vars.AWS_REGION }}
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v4
+      with:
+        terraform_version: 1.15
+  
+    - name: Prepare Backend
+      run: |
+          echo "Testing app installation..."
+          terraform --version
+          aws --version
+          aws sts get-caller-identity
+          echo "Using S3 key ${TERRAFORM_BACKEND_S3_KEYNAME} in bucket ${TERRAFORM_BACKEND_S3_BUCKET};"
+          cat <<-EOF > ${TERRAFORM_DIR}/backend.tf
+            terraform {
+              backend "s3" {
+                bucket         = "${TERRAFORM_BACKEND_S3_BUCKET}"
+                region         = "${AWS_REGION:-eu-central-1}"
+                key            = "${TERRAFORM_BACKEND_S3_KEYNAME}"
+              }
+            }
+          EOF
+          cat ${TERRAFORM_DIR}/backend.tf
+
+    - name: Initialize Terraform
+      run: terraform -chdir=${TERRAFORM_DIR} init
+
+    - name: Terraform Plan deployment
+      run: |
+          terraform -chdir=${TERRAFORM_DIR} plan -out=tfplan
+          terraform -chdir=${TERRAFORM_DIR} show -no-color tfplan > ${TERRAFORM_DIR}/plan.txt
+
+    - name: Upload Terraform Plan
+      uses: actions/upload-artifact@v7
+      with:
+        name: terraform-plan
+        path: |
+          ${{ env.TERRAFORM_DIR }}/tfplan
+          ${{ env.TERRAFORM_DIR }}/backend.tf
+          ${{ env.TERRAFORM_DIR }}/plan.txt
+        retention-days: 1
+
+  terraform-apply:
+    runs-on: ubuntu-latest
+    environment: dev/review
+    needs: terraform-plan
+    steps:
+    # 1. Downloading the code from the repository to the virtual machine GitHub
+    - name: Checkout Source Code
+      uses: actions/checkout@v6
+
+    - name: Download Terraform Plan
+      uses: actions/download-artifact@v8
+      with:
+        name: terraform-plan
+        path: ${{ env.TERRAFORM_DIR }}
+
+    - name: Authorize to AWS
+      uses: aws-actions/configure-aws-credentials@v6
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+        aws-region: ${{ vars.AWS_REGION }}
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v4
+      with:
+        terraform_version: 1.15
+  
+    - name: Check install app and AWS credentials
+      run: |
+          echo "Testing app installation..."
+          terraform --version
+          aws --version
+          aws sts get-caller-identity
+          echo "Using S3 key ${TERRAFORM_BACKEND_S3_KEYNAME} in bucket ${TERRAFORM_BACKEND_S3_BUCKET};"
+
+    - name: Initialize Terraform
+      run: terraform -chdir=${TERRAFORM_DIR} init
+
+    - name: Apply Terraform deployment
+      run: terraform -chdir=${TERRAFORM_DIR} apply tfplan
