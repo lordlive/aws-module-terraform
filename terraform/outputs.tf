@@ -127,7 +127,7 @@ output "rds_db_port" {
 }
 
 # ALB
-output "alb_target_group_arn" {
-  # value = module.alb["dev"].target_group_arn
-  value = { for k, v in module.alb : k => v.target_group_arn }
-}
+# output "alb_target_group_arn" {
+#   # value = module.alb["dev"].target_group_arn
+#   value = { for k, v in module.alb : k => v.target_group_arn }
+# }
