@@ -46,8 +46,8 @@ provider "helm" {
     host                   = length(var.env) > 0 ? module.eks[var.env[0]].cluster_endpoint : ""
     cluster_ca_certificate = length(var.env) > 0 ? base64decode(module.eks[var.env[0]].cluster_certificate_authority_data) : ""
     exec = {
-      api_version = "client.authentication.k8s.io/v1beta1"
-      args        = length(var.env) > 0 ? ["eks", "get-token", "--cluster-name", "${var.cluster_name}-${var.env[0]}"] : []
+      api_version = "client.authentication.k8s.io/v1"
+      args        = length(var.env) > 0 ? ["eks", "get-token", "--cluster-name", "${var.cluster_name}-${var.env[0]}", "--region", var.region] : []
       command     = "aws"
     }
   }
