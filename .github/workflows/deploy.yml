@@ -51,7 +51,7 @@ jobs:
     - name: Checkout Source Code
       uses: actions/checkout@v6
 
-    - name: configure aws credentials
+    - name: Authorize to AWS
       uses: aws-actions/configure-aws-credentials@v6
       with:
         role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
@@ -62,7 +62,7 @@ jobs:
       with:
         terraform_version: 1.15
   
-    - name: Test install app
+    - name: Prepare Backend
       run: |
           echo "Testing app installation..."
           terraform --version
@@ -83,8 +83,10 @@ jobs:
     - name: Initialize Terraform
       run: terraform -chdir=${TERRAFORM_DIR} init
 
-    - name: Plan Terraform deployment
-      run: terraform -chdir=${TERRAFORM_DIR} plan -out=tfplan
+    - name: Terraform Plan deployment
+      run: |
+          terraform -chdir=${TERRAFORM_DIR} plan -out=tfplan
+          terraform -chdir=${TERRAFORM_DIR} show -no-color tfplan > plan.txt
 
     - name: Upload Terraform Plan
       uses: actions/upload-artifact@v7
@@ -93,6 +95,7 @@ jobs:
         path: |
           ${{ env.TERRAFORM_DIR }}/tfplan
           ${{ env.TERRAFORM_DIR }}/backend.tf
+          ${{ env.TERRAFORM_DIR }}/plan.txt
         retention-days: 1
 
   terraform-apply:
@@ -110,7 +113,7 @@ jobs:
         name: terraform-plan
         path: ${{ env.TERRAFORM_DIR }}
 
-    - name: configure aws credentials
+    - name: Authorize to AWS
       uses: aws-actions/configure-aws-credentials@v6
       with:
         role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
@@ -121,7 +124,7 @@ jobs:
       with:
         terraform_version: 1.15
   
-    - name: Test install app
+    - name: Check install app and AWS credentials
       run: |
           echo "Testing app installation..."
           terraform --version
