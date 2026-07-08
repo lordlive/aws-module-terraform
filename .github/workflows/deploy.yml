@@ -86,7 +86,7 @@ jobs:
     - name: Terraform Plan deployment
       run: |
           terraform -chdir=${TERRAFORM_DIR} plan -out=tfplan
-          terraform -chdir=${TERRAFORM_DIR} show -no-color tfplan > plan.txt
+          terraform -chdir=${TERRAFORM_DIR} show -no-color tfplan > ${TERRAFORM_DIR}/plan.txt
 
     - name: Upload Terraform Plan
       uses: actions/upload-artifact@v7
