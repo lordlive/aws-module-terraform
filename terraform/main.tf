@@ -25,10 +25,10 @@ module "vpc" {
   one_nat_gateway_per_az = var.vpc_one_nat_gateway_per_az
 }
 
-module "ecr" {
-  source      = "./modules/ecr"
-  environment = var.environment
-}
+# module "ecr" {
+#   source      = "./modules/ecr"
+#   environment = var.environment
+# }
 
 module "s3" {
   source      = "./modules/s3"
