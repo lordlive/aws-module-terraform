@@ -43,11 +43,11 @@ provider "aws" {
 # Helm provider v3: kubernetes is a single nested object (use =, not block)
 provider "helm" {
   kubernetes = {
-    host                   = length(var.env) > 0 ? module.eks.cluster_endpoint : ""
-    cluster_ca_certificate = length(var.env) > 0 ? base64decode(module.eks.cluster_certificate_authority_data) : ""
+    host                   = module.eks.cluster_endpoint
+    cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
     exec = {
       api_version = "client.authentication.k8s.io/v1"
-      args        = length(var.env) > 0 ? ["eks", "get-token", "--cluster-name", "${var.cluster_name}", "--region", var.region] : []
+      args        = ["eks", "get-token", "--cluster-name", "${var.cluster_name}", "--region", var.region]
       command     = "aws"
     }
   }
