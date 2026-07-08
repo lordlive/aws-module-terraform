@@ -10,7 +10,7 @@ module "vpc" {
   # Network configuration
   vpc_name         = var.vpc_name
   vpc_cidr         = var.vpc_cidr
-  azs              = var.vpc_azs
+  azs              = data.aws_availability_zones.available.names # var.vpc_azs
   private_subnets  = var.vpc_private_subnets
   public_subnets   = var.vpc_public_subnets
   database_subnets = var.vpc_database_subnets

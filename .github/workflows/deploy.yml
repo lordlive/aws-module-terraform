@@ -26,7 +26,7 @@ env:
   # TF_VAR_create_vpc_endpoint:  true
   TF_VAR_app_name: "aws-module"
   TF_VAR_vpc_cidr: "10.0.0.0/20"
-  TF_VAR_vpc_azs: '["eu-central-1a", "eu-central-1b", "eu-central-1c"]'
+  # TF_VAR_vpc_azs: '["eu-central-1a", "eu-central-1b", "eu-central-1c"]'
   TF_VAR_vpc_private_subnets: '["10.0.0.0/24", "10.0.1.0/24"]'
   TF_VAR_vpc_public_subnets: '["10.0.2.0/24", "10.0.3.0/24"]'
   TF_VAR_vpc_database_subnets: '["10.0.4.0/24", "10.0.5.0/24"]'
