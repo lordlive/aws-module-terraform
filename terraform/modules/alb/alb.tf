@@ -21,19 +21,21 @@ module "alb" {
   #   }
   # ]
 
-  target_groups = [
-    {
-      name             = "eks-auth-tg"
-      backend_protocol = "HTTP"
-      backend_port     = 80
-      target_type      = "ip"
+  # target_groups = [
+  #   {
+  #     name             = "eks-auth-tg"
+  #     backend_protocol = "HTTP"
+  #     backend_port     = 80
+  #     target_type      = "ip"
 
-      tags = {
-        "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-      }
+  #     tags = {
+  #       "kubernetes.io/cluster/${var.cluster_name}" = "shared"
+  #     }
 
-    }
-  ]
+  #   }
+  # ]
+
+  target_groups = []
 
   https_listeners = [
     {
@@ -43,21 +45,27 @@ module "alb" {
     }
   ]
 
-  https_listener_rules = [
-    {
-      https_listener_index = 0
-      priority             = 1000
+  # https_listener_rules = [
+  #   {
+  #     https_listener_index = 0
+  #     priority             = 1000
 
-      actions = [{
-        type               = "forward"
-        target_group_index = 0
-      }]
+  #     actions = [{
+  #       type               = "forward"
+  #       target_group_index = 0
+  #     }]
 
-      conditions = [{
-        path_patterns = ["/auth", "/auth/*"]
-      }]
-    }
-  ]
+  #     conditions = [{
+  #       path_patterns = ["/auth", "/auth/*"]
+  #     }]
+  #   }
+  # ]
+  https_listener_rules = []
+
+  tags = {
+    "ingress.k8s.aws/resourcegroup" = "my-apps" # deps
+  }
+
 }
 
 # Create autoscaling attachment to target groups
