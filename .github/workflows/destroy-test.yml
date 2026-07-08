@@ -1,0 +1,40 @@
+name: Destroy Terraform Test IaC
+# Destroy infrastructure using Terraform
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:  
+  group: ${{ github.workflow }}-${{ github.ref }}  
+  cancel-in-progress: false
+
+env:
+  TERRAFORM_DIR: ./terraform
+  TERRAFORM_BACKEND_S3_KEYNAME: state-file/git-hub/aws-module-terraform/test/terraform.tfstate
+  TERRAFORM_BACKEND_S3_BUCKET: 807291694811-deployment-bucket-prod
+
+jobs:
+  terraform-destroy:
+    runs-on: ubuntu-latest
+    environment: dev
+
+    steps:
+    # 1. Downloading the code from the repository to the virtual machine GitHub
+    - name: Checkout Source Code
+      uses: actions/checkout@v6
+
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v6
+      with:
+        role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+        aws-region: ${{ vars.AWS_REGION }}      
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v4
+      with:
+        terraform_version: 1.15
