@@ -1,35 +1,35 @@
-# Global
-env         = ["dev"]
-region      = "eu-central-1"
-environment = "dev"
-# create_access_entries = true
+# # Global
+# env         = ["dev"]
+# region      = "eu-central-1"
+# environment = "dev"
+# # create_access_entries = true
 
-# VPC
-# switcher_default_vpc = false
-# create_vpc_endpoint  = true
-app_name = "aws-module"
+# # VPC
+# # switcher_default_vpc = false
+# # create_vpc_endpoint  = true
+# app_name = "aws-module"
 
-vpc_cidr             = "10.0.0.0/20"
-vpc_azs              = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
-vpc_private_subnets  = ["10.0.0.0/24", "10.0.1.0/24"]
-vpc_public_subnets   = ["10.0.2.0/24", "10.0.3.0/24"]
-vpc_database_subnets = ["10.0.4.0/24", "10.0.5.0/24"]
+# vpc_cidr             = "10.0.0.0/20"
+# vpc_azs              = ["eu-central-1a", "eu-central-1b", "eu-central-1c"]
+# vpc_private_subnets  = ["10.0.0.0/24", "10.0.1.0/24"]
+# vpc_public_subnets   = ["10.0.2.0/24", "10.0.3.0/24"]
+# vpc_database_subnets = ["10.0.4.0/24", "10.0.5.0/24"]
 
-vpc_enable_dns_hostnames   = true
-vpc_enable_dns_support     = true
-vpc_enable_nat_gateway     = true
-vpc_single_nat_gateway     = true
-vpc_one_nat_gateway_per_az = false
+# vpc_enable_dns_hostnames   = true
+# vpc_enable_dns_support     = true
+# vpc_enable_nat_gateway     = true
+# vpc_single_nat_gateway     = true
+# vpc_one_nat_gateway_per_az = false
 
-# S3
-bucket_name = "807291694811-dev-bucket"
+# # S3
+# bucket_name = "807291694811-dev-bucket"
 
-# EKS
-cluster_name = "eks-alpha-dev"
-node_name    = "node-alpha"
-min_size     = 1
-max_size     = 3
-desired_size = 1
-disk_size    = 20
+# # EKS
+# cluster_name = "eks-alpha-dev"
+# node_name    = "node-alpha"
+# min_size     = 1
+# max_size     = 3
+# desired_size = 1
+# disk_size    = 20
 
-create_node_iam_role = true
+# create_node_iam_role = true
