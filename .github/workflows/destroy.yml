@@ -14,7 +14,7 @@ concurrency:
 
 env:
   TERRAFORM_DIR: ./terraform
-  TERRAFORM_BACKEND_S3_KEYNAME: state-file/git-hub/dev/aws-module-terraform/terraform.tfstate
+  TERRAFORM_BACKEND_S3_KEYNAME: state-file/git-hub/aws-module-terraform/dev/terraform.tfstate
   TERRAFORM_BACKEND_S3_BUCKET: 807291694811-deployment-bucket-prod
 
 jobs:
