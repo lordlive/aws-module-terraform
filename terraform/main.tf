@@ -188,20 +188,20 @@ module "rds" {
 }
 
 # ALB
-module "alb" {
-  for_each     = toset(var.env)
-  source       = "./modules/alb"
-  app_name     = "${var.app_name}-${var.environment}-alb"
-  cluster_name = var.cluster_name
+# module "alb" {
+#   for_each     = toset(var.env)
+#   source       = "./modules/alb"
+#   app_name     = "${var.app_name}-${var.environment}-alb"
+#   cluster_name = var.cluster_name
 
-  # # Common settings
-  # env = each.value
+#   # # Common settings
+#   # env = each.value
 
-  vpc_id          = module.vpc[each.value].vpc_id
-  subnets         = module.vpc[each.value].public_subnets # data.aws_subnets.private_subnets.ids # , data.aws_subnets.public_subnets.ids]
-  security_groups = [module.vpc[each.value].alb_security_group_id]
-  eks_asg_name    = module.eks[each.value].eks_asg_name # data.aws_autoscaling_group.eks_asg.name
-}
+#   vpc_id          = module.vpc[each.value].vpc_id
+#   subnets         = module.vpc[each.value].public_subnets # data.aws_subnets.private_subnets.ids # , data.aws_subnets.public_subnets.ids]
+#   security_groups = [module.vpc[each.value].alb_security_group_id]
+#   eks_asg_name    = module.eks[each.value].eks_asg_name # data.aws_autoscaling_group.eks_asg.name
+# }
 
 # IAM
 module "iam" {
