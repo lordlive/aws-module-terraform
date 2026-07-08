@@ -17,7 +17,7 @@ module "db" {
   version = "~> 6.13.0"
 
   # Common settings
-  identifier = "${var.name}-${var.environment}"
+  identifier = var.name
 
   # Database engine configuration
   engine               = var.engine
