@@ -1,8 +1,9 @@
-name: Destroy Terraform IaC
+name: Destroy Terraform Dev IaC
 # Destroy infrastructure using Terraform
 
 on:
   workflow_dispatch:
+  push:
 
 permissions:
   contents: read
@@ -38,26 +39,26 @@ jobs:
       with:
         terraform_version: 1.15
 
-    - name: Create backend file
-      run: |
-          echo "Testing app installation..."
-          terraform --version
-          aws --version
-          aws sts get-caller-identity
-          echo "Using S3 key ${TERRAFORM_BACKEND_S3_KEYNAME} in bucket ${TERRAFORM_BACKEND_S3_BUCKET};"
-          cat <<-EOF > ${TERRAFORM_DIR}/backend.tf
-            terraform {
-              backend "s3" {
-                bucket         = "${TERRAFORM_BACKEND_S3_BUCKET}"
-                region         = "${AWS_REGION:-eu-central-1}"
-                key            = "${TERRAFORM_BACKEND_S3_KEYNAME}"
-              }
-            }
-          EOF
-          cat ${TERRAFORM_DIR}/backend.tf
+    # - name: Create backend file
+    #   run: |
+    #       echo "Testing app installation..."
+    #       terraform --version
+    #       aws --version
+    #       aws sts get-caller-identity
+    #       echo "Using S3 key ${TERRAFORM_BACKEND_S3_KEYNAME} in bucket ${TERRAFORM_BACKEND_S3_BUCKET};"
+    #       cat <<-EOF > ${TERRAFORM_DIR}/backend.tf
+    #         terraform {
+    #           backend "s3" {
+    #             bucket         = "${TERRAFORM_BACKEND_S3_BUCKET}"
+    #             region         = "${AWS_REGION:-eu-central-1}"
+    #             key            = "${TERRAFORM_BACKEND_S3_KEYNAME}"
+    #           }
+    #         }
+    #       EOF
+    #       cat ${TERRAFORM_DIR}/backend.tf
 
-    - name: Initialize Terraform
-      run: terraform -chdir=${TERRAFORM_DIR} init
+    # - name: Initialize Terraform
+    #   run: terraform -chdir=${TERRAFORM_DIR} init
 
-    - name: Destroy Terraform deployment
-      run: terraform -chdir=${TERRAFORM_DIR} destroy -auto-approve
+    # - name: Destroy Terraform deployment
+    #   run: terraform -chdir=${TERRAFORM_DIR} destroy -auto-approve
