@@ -202,3 +202,13 @@ module "alb" {
   security_groups = [module.vpc[each.value].alb_security_group_id]
   eks_asg_name    = module.eks[each.value].eks_asg_name # data.aws_autoscaling_group.eks_asg.name
 }
+
+# IAM
+module "iam" {
+  for_each     = toset(var.env)
+  env          = each.value
+  source       = "./modules/iam"
+  cluster_name = var.cluster_name
+  vpc_id       = module.vpc[each.value].vpc_id
+  region       = var.region
+}
