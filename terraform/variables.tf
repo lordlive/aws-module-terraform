@@ -31,10 +31,10 @@ variable "vpc_cidr" {
   description = "CIDR block for VPC"
 }
 
-variable "vpc_azs" {
-  type        = list(string)
-  description = "A list of availability zones in the region"
-}
+# variable "vpc_azs" {
+#   type        = list(string)
+#   description = "A list of availability zones in the region"
+# }
 
 variable "vpc_private_subnets" {
   type        = list(string)
