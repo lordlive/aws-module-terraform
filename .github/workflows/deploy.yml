@@ -3,6 +3,7 @@ name: Deploy Terraform IaC
 
 on:
   push:
+  workflow_dispatch:
 
 permissions:
   contents: read
