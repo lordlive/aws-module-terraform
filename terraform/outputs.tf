@@ -50,18 +50,18 @@ output "alb_security_group_id" {
   # value       = module.vpc.alb_security_group_id
 }
 
-### ECR
-output "repository_id" {
-  value = module.ecr.repository_id
-}
+# ### ECR
+# output "repository_id" {
+#   value = module.ecr.repository_id
+# }
 
-output "repository_name" {
-  value = module.ecr.repository_name
-}
+# output "repository_name" {
+#   value = module.ecr.repository_name
+# }
 
-output "repository_arn" {
-  value = module.ecr.repository_arn
-}
+# output "repository_arn" {
+#   value = module.ecr.repository_arn
+# }
 
 # EKS
 output "eks_cluster_id" {
