@@ -211,4 +211,5 @@ module "iam" {
   cluster_name = var.cluster_name
   vpc_id       = module.vpc[each.value].vpc_id
   region       = var.region
+  depends_on   = [module.eks[each.value]]
 }
