@@ -42,6 +42,17 @@ module "alb" {
       port            = 443
       certificate_arn = var.certificate_arn #aws_acm_certificate.test_cert.arn
       ssl_policy      = "ELBSecurityPolicy-TLS-1-2-Ext-2018-06"
+
+      # EXPLICITLY CHANGING THE DEFAULT ACTION (so that it doesn't search for target_groups)
+      action_type = "fixed-response"
+
+      # Setting a fixed response (if a person visits a non-existent domain)
+      fixed_response = {
+        content_type = "text/plain"
+        message_body = "Site Not Found"
+        status_code  = "404"
+      }
+
     }
   ]
 
