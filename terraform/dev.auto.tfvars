@@ -25,8 +25,8 @@ vpc_one_nat_gateway_per_az = false
 bucket_name = "807291694811-dev-bucket"
 
 # EKS
-
 cluster_name = "eks-alpha-dev"
+node_name    = "node-alpha"
 min_size     = 1
 max_size     = 3
 desired_size = 1
