@@ -14,17 +14,18 @@ concurrency:
   cancel-in-progress: false
 
 env:
+  ENVIRONMENT: "dev"
   TERRAFORM_DIR: "./terraform"
   TERRAFORM_BACKEND_S3_KEYNAME: "state-file/git-hub/aws-module-terraform/dev/terraform.tfstate"
   TERRAFORM_BACKEND_S3_BUCKET: "807291694811-deployment-bucket-prod"
-  TF_VAR_env: '["dev"]'
+  TF_VAR_env: '["${ENVIRONMENT}"]'
   TF_VAR_region: "eu-central-1"
-  TF_VAR_environment: "dev"
+  TF_VAR_environment: "${ENVIRONMENT}"
   # TF_VAR_create_access_entries: true
   # VPC
   # TF_VAR_switcher_default_vpc: false
   # TF_VAR_create_vpc_endpoint:  true
-  TF_VAR_app_name: "aws-module-dev"
+  TF_VAR_app_name: "aws-module"
   TF_VAR_vpc_cidr: "10.0.0.0/20"
   # TF_VAR_vpc_azs: '["eu-central-1a", "eu-central-1b", "eu-central-1c"]'
   TF_VAR_vpc_private_subnets: '["10.0.0.0/24", "10.0.1.0/24"]'
@@ -36,10 +37,10 @@ env:
   TF_VAR_vpc_single_nat_gateway: true
   TF_VAR_vpc_one_nat_gateway_per_az: false
   # S3
-  TF_VAR_bucket_name: "807291694811-dev-bucket"
+  TF_VAR_bucket_name: "807291694811-${ENVIRONMENT}-bucket"
   # EKS
-  TF_VAR_cluster_name: "eks-alpha-dev"
-  TF_VAR_node_name: "node-alpha"
+  TF_VAR_cluster_name: "eks-alpha-${ENVIRONMENT}"
+  TF_VAR_node_name: "node-alpha-${ENVIRONMENT}"
   TF_VAR_min_size: 1
   TF_VAR_max_size: 3
   TF_VAR_desired_size: 1
