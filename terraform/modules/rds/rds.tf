@@ -4,7 +4,7 @@ resource "random_password" "password" {
   length  = 16
   special = true
   # Exclude problematic characters that may cause issues in connection strings
-  override_special = "!#$%&'()*+,-.:;?@[]^_{|}~"
+  override_special = "!#$%&'()*+,-.:;?[]^_{|}~"
   # Ensure password has required character types
   min_lower   = 1
   min_upper   = 1
