@@ -13,9 +13,37 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  TERRAFORM_DIR: ./terraform
-  TERRAFORM_BACKEND_S3_KEYNAME: state-file/git-hub/aws-module-terraform/test/terraform.tfstate
-  TERRAFORM_BACKEND_S3_BUCKET: 807291694811-deployment-bucket-prod
+  TERRAFORM_DIR: "./terraform"
+  TERRAFORM_BACKEND_S3_KEYNAME: "state-file/git-hub/aws-module-terraform/test/terraform.tfstate"
+  TERRAFORM_BACKEND_S3_BUCKET: "807291694811-deployment-bucket-prod"
+  TF_VAR_env: '["test"]'
+  TF_VAR_region: "eu-central-1"
+  TF_VAR_environment: "test"
+  # TF_VAR_create_access_entries: true
+  # VPC
+  # TF_VAR_switcher_default_vpc: false
+  # TF_VAR_create_vpc_endpoint:  true
+  TF_VAR_app_name: "aws-module-test"
+  TF_VAR_vpc_cidr: "20.0.0.0/20"
+  # TF_VAR_vpc_azs: '["eu-central-1a", "eu-central-1b", "eu-central-1c"]'
+  TF_VAR_vpc_private_subnets: '["20.0.0.0/24", "20.0.1.0/24"]'
+  TF_VAR_vpc_public_subnets: '["20.0.2.0/24", "20.0.3.0/24"]'
+  TF_VAR_vpc_database_subnets: '["20.0.4.0/24", "20.0.5.0/24"]'
+  TF_VAR_vpc_enable_dns_hostnames: true
+  TF_VAR_vpc_enable_dns_support: true
+  TF_VAR_vpc_enable_nat_gateway: true
+  TF_VAR_vpc_single_nat_gateway: true
+  TF_VAR_vpc_one_nat_gateway_per_az: false
+  # S3
+  TF_VAR_bucket_name: "807291694811-test-bucket"
+  # EKS
+  TF_VAR_cluster_name: "eks-beta-test"
+  TF_VAR_node_name: "node-beta"
+  TF_VAR_min_size: 1
+  TF_VAR_max_size: 2
+  TF_VAR_desired_size: 1
+  TF_VAR_disk_size: 20
+  TF_VAR_create_node_iam_role: true
 
 jobs:
   terraform-destroy:

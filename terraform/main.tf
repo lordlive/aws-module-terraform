@@ -145,7 +145,7 @@ module "rds" {
 
   # Common settings
   env         = each.value
-  name        = "${each.value}-${var.app_name}"
+  name        = "${each.value}-${var.app_name}" ## ???
   environment = var.environment
 
   # Database Engine settings
