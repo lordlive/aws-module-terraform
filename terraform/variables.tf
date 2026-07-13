@@ -217,7 +217,7 @@ variable "disk_size" {
 variable "eks_access_principal_arn" {
   type        = string
   description = "ARN of the principal for the EKS access."
-  default     = "arn:aws:iam::807291694811:user/admin"
+  # default     = "arn:aws:iam::807291694811:user/admin"
 }
 
 variable "eks_access_policy_arn" {

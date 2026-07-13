@@ -37,7 +37,7 @@ env:
   TF_VAR_vpc_single_nat_gateway: true
   TF_VAR_vpc_one_nat_gateway_per_az: false
   # S3
-  TF_VAR_bucket_name: "807291694811-${ENVIRONMENT}-bucket"
+  TF_VAR_bucket_name: "${{ vars.CLOUD_IDENTIFIER }}-${ENVIRONMENT}-bucket"
   # EKS
   TF_VAR_cluster_name: "eks-alpha-${ENVIRONMENT}"
   TF_VAR_node_name: "node-alpha-${ENVIRONMENT}"
@@ -46,6 +46,7 @@ env:
   TF_VAR_desired_size: 1
   TF_VAR_disk_size: 20
   TF_VAR_create_node_iam_role: true
+  TF_VAR_eks_access_principal_arn: "arn:aws:iam::${{ vars.CLOUD_IDENTIFIER }}:user/admin"
 
 jobs:
   terraform-check:

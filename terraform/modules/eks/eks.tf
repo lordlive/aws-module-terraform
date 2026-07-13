@@ -111,7 +111,7 @@ module "eks" {
       }
     },
     readonly = {
-      principal_arn = "arn:aws:iam::807291694811:user/poweruser"
+      principal_arn = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/poweruser"
       policy_associations = {
         admin = {
           policy_arn = "arn:aws:eks::aws:cluster-access-policy/AmazonEKSAdminViewPolicy"
