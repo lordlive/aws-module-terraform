@@ -1,7 +1,7 @@
 variable "bucket_name" {
   type        = string
   description = "S3 name"
-  default     = "807291694811-test-bucket"
+  default     = "807291694811-default-bucket-name"
 }
 
 variable "environment" {
