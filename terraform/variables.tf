@@ -272,8 +272,9 @@ variable "rds_allocated_storage" {
 variable "rds_storage_type" {
   type        = string
   description = "One of 'standard' (magnetic), 'gp2' (general purpose SSD), 'gp3' (general purpose SSD), or 'io1' (provisioned IOPS SSD). The default is 'io1' if iops is specified, 'standard' if not."
-  default     = "gp3" # gp2
+  default     = "gp2"
 }
+
 variable "rds_max_allocated_storage" {
   type        = number
   description = "Maximum storage value in gigabytes"
