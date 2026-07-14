@@ -24,11 +24,11 @@ env:
   # TF_VAR_switcher_default_vpc: false
   # TF_VAR_create_vpc_endpoint:  true
   TF_VAR_app_name: "aws-module-test"
-  TF_VAR_vpc_cidr: "20.0.0.0/20"
+  TF_VAR_vpc_cidr: "10.2.0.0/20"
   # TF_VAR_vpc_azs: '["eu-central-1a", "eu-central-1b", "eu-central-1c"]'
-  TF_VAR_vpc_private_subnets: '["20.0.0.0/24", "20.0.1.0/24"]'
-  TF_VAR_vpc_public_subnets: '["20.0.2.0/24", "20.0.3.0/24"]'
-  TF_VAR_vpc_database_subnets: '["20.0.4.0/24", "20.0.5.0/24"]'
+  TF_VAR_vpc_private_subnets: '["10.2.0.0/24", "10.2.1.0/24"]'
+  TF_VAR_vpc_public_subnets: '["10.2.2.0/24", "10.2.3.0/24"]'
+  TF_VAR_vpc_database_subnets: '["10.2.4.0/24", "10.2.5.0/24"]'
   TF_VAR_vpc_enable_dns_hostnames: true
   TF_VAR_vpc_enable_dns_support: true
   TF_VAR_vpc_enable_nat_gateway: true
@@ -40,7 +40,7 @@ env:
   TF_VAR_cluster_name: "eks-beta-test"
   TF_VAR_node_name: "node-beta"
   TF_VAR_min_size: 1
-  TF_VAR_max_size: 2
+  TF_VAR_max_size: 3
   TF_VAR_desired_size: 1
   TF_VAR_disk_size: 20
   TF_VAR_create_node_iam_role: true
