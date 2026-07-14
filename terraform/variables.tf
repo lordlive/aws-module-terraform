@@ -266,7 +266,7 @@ variable "rds_instance_class" {
 variable "rds_allocated_storage" {
   type        = string
   description = "The allocate storage in gigabytes"
-  default     = "10"
+  default     = "20"
 }
 
 variable "rds_storage_type" {
