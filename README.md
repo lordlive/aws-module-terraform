@@ -697,3 +697,14 @@ For issues, questions, or suggestions:
 **Version:** 1.0.0
 
 **Maintainer:** lordlive
+
+## Available EC2 instances for Free Tier
+
+t3.micro 2vCPU 1GB Memory x68_64
+t3.small 2vCPU 2GB Memory x68_64
+m7i-flex.large 2vCPU 8GB Memory x68_64
+c7i-flex.large 2vCPU 4GB Memory x68_64
+t4g.small 2vCPU 2GB Memory arm64
+t4g.micro 2vCPU 1GB Memory arm64
+db.t4g.micro 2vCPU 1 GiB RAM for RDS
+db.t3.micro 2 vCPU, 1 GiB RAM for RDS
