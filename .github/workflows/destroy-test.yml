@@ -23,7 +23,7 @@ env:
   # VPC
   # TF_VAR_switcher_default_vpc: false
   # TF_VAR_create_vpc_endpoint:  true
-  TF_VAR_app_name: "aws-module-test"
+  TF_VAR_app_name: "aws-module"
   TF_VAR_vpc_cidr: "10.2.0.0/20"
   # TF_VAR_vpc_azs: '["eu-central-1a", "eu-central-1b", "eu-central-1c"]'
   TF_VAR_vpc_private_subnets: '["10.2.0.0/24", "10.2.1.0/24"]'
