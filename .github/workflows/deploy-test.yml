@@ -69,7 +69,6 @@ jobs:
     - name: Validate Terraform configuration
       run: terraform -chdir=${TERRAFORM_DIR} fmt -check
 
-
   terraform-plan:
     runs-on: ubuntu-latest
     environment: dev
